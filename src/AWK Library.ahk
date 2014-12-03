@@ -78,45 +78,14 @@ PreferenceKeyFnUp(normalKey, pref) {
 
 VolumeMute(dummyVar="") {
     Send {Volume_Mute}
-    GoSub, ProgressOff
-    ShowVolume()
 }
 
 VolumeDown(dummyVar="") {
-    global
-    SoundSet, -%VolumeDownRate%, Master, Volume
-	if (SyncWaveVolumeToMasterVolume) {
-		SoundGet, MasterVolume, Master, Volume
-		SoundSet, MasterVolume, Wave, Volume
-	}
-    ShowVolume()
+	Send {Volume_Down}
 }
 
 VolumeUp(dummyVar="") {
-    global
-    SoundSet, +%VolumeUpRate%, Master, Volume
-	if (SyncWaveVolumeToMasterVolume) {
-		SoundGet, MasterVolume, Master, Volume
-		SoundSet, MasterVolume, Wave, Volume
-	}
-    ShowVolume()
-}
-
-VolumeSet(NewVolume, UnMute = false) {
-	global
-    SoundSet, %NewVolume%, Master, Volume
-	if (SyncWaveVolumeToMasterVolume) {
-		SoundSet, %NewVolume%, Wave, Volume
-	}
-    if (UnMute) {
-        ; Avoid flicker if already unmuted
-        SoundGet, IsMuted, Master, Mute
-        if (IsMuted = "On") {
-            SoundSet, Off, Master, Mute
-            GoSub, ProgressOff
-        }
-    }
-    ShowVolume()
+	Send {Volume_Up}
 }
 
 ProgressOff:
@@ -125,43 +94,6 @@ ProgressOff:
 	Sleep, 30
 	Progress, 1: Off
 Return
-
-ShowVolume() {
-    global
-
-    SoundGet, MasterVolume, Master, Volume
-    SoundGet, WaveVolume, Wave, Volume
-    
-    IfWinNotExist, Master Volume
-    {
-        SoundGet, MasterMute, Master, Mute
-        
-        if (MasterMute = "on") {
-            bgColor  = %MutedVolumeColorBg%
-            barColor = %MutedVolumeColorBar%
-        } else {
-            bgColor  = %VolumeColorBg%
-            barColor = %VolumeColorBar%
-        }
-        SetWinDelay, -1
-		ColorStr = cw%bgColor% ct0000CC cb%barColor%
-		SizeStr  =  h%OverlayHeight% w%OverlayWidth% zh%OverlayHeight% zx0 zy0
-        Progress, 1: p%MasterVolume% b %SizeStr% %ColorStr%, , , Master Volume, Arial
-        
-		WinSet, Transparent, %OverlayTransparency%, Master Volume
-
-        ;WinGetPos, X1, Y1, Width1, Height1, Master Volume
-		if not OverlayDisplayCentered {
-			WinMove, Master Volume, , 0, 0
-		}
-    }
-    else
-    {
-        Progress, 1: %MasterVolume%
-    }
-
-    SetTimer ProgressOff, %OverlayDisplayTime%
-}
 
 ActiveWindowIsAMediaPlayer() {
 	SetTitleMatchMode RegEx
