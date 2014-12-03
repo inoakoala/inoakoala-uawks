@@ -72,6 +72,13 @@ PreferenceKeyFnUp(normalKey, pref) {
 }
 
 ;;
+;; Mission Control Key Support
+;;
+MissionControl(dummyVar="") {
+	Run, DisplaySwitch
+}
+
+;;
 ;; Brightness Key Support
 ;; 
 

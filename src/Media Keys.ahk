@@ -21,3 +21,9 @@ $F12::FnKeyCall("{F12}", "VolumeUp", "", VolumeControlsAreDefault)
 
 $F1::FnKeyCall("{F1}", "BrightnessDown", "", BrightnessControlsAreDefault)
 $F2::FnKeyCall("{F2}", "BrightnessUp", "", BrightnessControlsAreDefault)
+
+;;
+;; Project to a second screen
+;;
+
+$F3::FnKeyCall("{F3}", "MissionControl", "", MissionControlIsDefault)
