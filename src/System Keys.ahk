@@ -17,10 +17,6 @@ $*RAlt Up::PreferenceKeyFnUp("RAlt", "RemapRightOptionToFn")
 ;; {Apple Fn Key}-{Backspace} --> {Forward Delete}
 $*Backspace::FnKey("{Backspace}", "{Delete}")
 
-;; {Apple Fn Key}-{F3} --> {Print Screen}
-$F3::FnKey("{F3 Down}", "", false)
-$F3 Up::FnKey("{F3 Up}", "{PrintScreen}", false)
-
 ;; {Control}-{Alt}-{Backspace} --> Ctrl-Alt-Delete
 #!Backspace::
 ^!Backspace::Run taskmgr.exe
