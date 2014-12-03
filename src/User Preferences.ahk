@@ -22,6 +22,7 @@ IniRead, RemapCapsLockToControl, %ConfigFilename%, %SectionName%, RemapCapsLockT
 IniRead, RemapRightOptionToFn, %ConfigFilename%, %SectionName%, RemapRightOptionToFn, 0
 IniRead, RemapLeftControlToWindows, %ConfigFilename%, %SectionName%, RemapLeftControlToWindows, 0
 IniRead, RemapControlBackquote, %ConfigFilename%, %SectionName%, RemapControlBackquote, 0
+IniRead, RemapMissionControlToProject, %ConfigFilename%, %SectionName%, RemapMissionControlToProject, 0
 
 ;;
 ;; Media Key Settings
@@ -115,6 +116,7 @@ RemapRightOptionToFnMenuText         := "Use right option key as an extra fn key
 ;;                                   ---------------------------------------------
 RemapLeftControlToWindowsMenuText    := "Use left control as a Windows key"
 RemapCapsLockToControlMenuText       := "Use caps lock as an extra control key"
+RemapMissionControlToProjectMenuText := "Use mission control as project key"
 ;;                                   ---------------------------------------------
 BrightnessControlsAreDefaultMenuText := "Brightness keys work without holding fn"
 MissionControlIsDefaultMenuText      := "Mission Control key works without holding fn"
@@ -137,6 +139,7 @@ if (ExpertMode) {
 	Menu, TRAY, add, %RemapLeftControlToWindowsMenuText%, RemapLeftControlToWindowsMenuHandler
 	Menu, TRAY, add, %RemapCapsLockToControlMenuText%, RemapCapsLockToControlMenuHandler
 	Menu, TRAY, add, %RemapRightCommandToAltGrMenuText%, RemapRightCommandToAltGrMenuHandler
+	Menu, TRAY, add, %RemapMissionControlToProjectMenuText%, RemapMissionControlToProjectMenuHandler
 	Menu, TRAY, add,,
 	Menu, TRAY, add, %BrightnessControlsAreDefaultMenuText%, BrightnessControlsAreDefaultMenuHandler
 	Menu, TRAY, add, %MissionControlIsDefaultMenuText%, MissionControlIsDefaultMenuHandler
@@ -185,6 +188,9 @@ RemapControlBackquoteMenuHandler:
 RemapRightCommandToAltGrMenuHandler:
 	TogglePreference("RemapRightCommandToAltGr")
 	return
+RemapMissionControlToProjectMenuHandler:
+	TogglePreference("RemapMissionControlToProject")
+	return
 BrightnessControlsAreDefaultMenuHandler:
 	TogglePreference("BrightnessControlsAreDefault")
 	return
@@ -229,6 +235,7 @@ if (!ExpertMode) {
 	;; (so any expert settings won't be lost)
 	SetCapsLockState, Off
 	RemapCapsLockToControl       := 0
+	RemapMissionControlToProject := 0
 	BrightnessControlsAreDefault := 0
 	MissionControlIsDefault      := 0
 	MediaControlsAreDefault      := 0
