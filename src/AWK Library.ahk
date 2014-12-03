@@ -71,6 +71,17 @@ PreferenceKeyFnUp(normalKey, pref) {
 	}
 }
 
+;;
+;; Brightness Key Support
+;; 
+
+BrightnessUp(dummyVar="") {
+	Run, lcd up, , Hide
+}
+
+BrightnessDown(dummyVar="") {
+	Run, lcd down, , Hide
+}
 
 ;;
 ;; Volume Helpers

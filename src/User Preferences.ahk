@@ -31,6 +31,7 @@ IniRead, EjectDelayTime, %ConfigFilename%, %SectionName%, EjectDelayTime, 500
 
 IniRead, VolumeControlsAreDefault, %ConfigFilename%, %SectionName%, VolumeControlsAreDefault, 0
 IniRead, MediaControlsAreDefault, %ConfigFilename%, %SectionName%, MediaControlsAreDefault, 0
+IniRead, BrightnessControlsAreDefault, %ConfigFilename%, %SectionName%, BrightnessControlsAreDefault, 0
 
 IniRead, SyncWaveVolumeToMasterVolume, %ConfigFilename%, %SectionName%, SyncWaveVolumeToMasterVolume, 0
 
@@ -114,6 +115,7 @@ RemapRightOptionToFnMenuText         := "Use right option key as an extra fn key
 RemapLeftControlToWindowsMenuText    := "Use left control as a Windows key"
 RemapCapsLockToControlMenuText       := "Use caps lock as an extra control key"
 ;;                                   ---------------------------------------------
+BrightnessControlsAreDefaultMenuText := "Brightness keys work without holding fn"
 MediaControlsAreDefaultMenuText      := "Media keys work without holding fn"
 VolumeControlsAreDefaultMenuText     := "Volume keys work without holding fn"
 SyncWaveVolumeToMasterVolumeMenuText := "Volume changes affect wave device as well"
@@ -134,6 +136,7 @@ if (ExpertMode) {
 	Menu, TRAY, add, %RemapCapsLockToControlMenuText%, RemapCapsLockToControlMenuHandler
 	Menu, TRAY, add, %RemapRightCommandToAltGrMenuText%, RemapRightCommandToAltGrMenuHandler
 	Menu, TRAY, add,,
+	Menu, TRAY, add, %BrightnessControlsAreDefaultMenuText%, BrightnessControlsAreDefaultMenuHandler
 	Menu, TRAY, add, %MediaControlsAreDefaultMenuText%, MediaControlsAreDefaultMenuHandler
 	Menu, TRAY, add, %VolumeControlsAreDefaultMenuText%, VolumeControlsAreDefaultMenuHandler
 	Menu, TRAY, add, %SyncWaveVolumeToMasterVolumeMenuText%, SyncWaveVolumeToMasterVolumeMenuHandler
@@ -179,6 +182,9 @@ RemapControlBackquoteMenuHandler:
 RemapRightCommandToAltGrMenuHandler:
 	TogglePreference("RemapRightCommandToAltGr")
 	return
+BrightnessControlsAreDefaultMenuHandler:
+	TogglePreference("BrightnessControlsAreDefault")
+	return
 MediaControlsAreDefaultMenuHandler:
 	TogglePreference("MediaControlsAreDefault")
 	return
@@ -205,6 +211,7 @@ InitPreference("RemapRightOptionToFn")
 InitPreference("RemapCapsLockToControl")
 InitPreference("RemapRightCommandToAltGr")
 InitPreference("RemapControlBackquote")
+InitPreference("BrightnessControlsAreDefault")
 InitPreference("MediaControlsAreDefault")
 InitPreference("VolumeControlsAreDefault")
 InitPreference("SyncWaveVolumeToMasterVolume")
@@ -214,10 +221,11 @@ if (!ExpertMode) {
 	;; are disabled, but not written to the ini
 	;; (so any expert settings won't be lost)
 	SetCapsLockState, Off
-	RemapCapsLockToControl   := 0
-	MediaControlsAreDefault  := 0
-	VolumeControlsAreDefault := 0
-	RemapRightOptionToFn     := 0
-	RemapRightCommandToAltGr := 0
+	RemapCapsLockToControl       := 0
+	BrightnessControlsAreDefault := 0
+	MediaControlsAreDefault      := 0
+	VolumeControlsAreDefault     := 0
+	RemapRightOptionToFn         := 0
+	RemapRightCommandToAltGr     := 0
 }
 
